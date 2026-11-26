@@ -648,7 +648,7 @@ def main() -> int:
         help="Interpreter with upstream click installed (for baseline/click).",
     )
     parser.add_argument("--label", help="Name for the result files.")
-    parser.add_argument("--samples", type=int, default=30)
+    parser.add_argument("--samples", type=int, default=40)
     parser.add_argument("--warmup", type=int, default=3)
     parser.add_argument("--seed", type=int, default=20261126)
     parser.add_argument(

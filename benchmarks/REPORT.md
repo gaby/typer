@@ -40,7 +40,7 @@ noise on this VM is about ±10 ms (the interquartile range of a Typer case is
    `None`. So the first parameter processed imports Pydantic and builds a
    schema whose result is thrown away. This arrived with Pydantic validation
    in 0.29.0: Typer 0.28.0 ran the same commands in about 70 ms, so every
-   command run is now 88–102 ms slower (2.2–2.5×). `import typer` and root
+   command run is now 88–102 ms slower (2.1–2.5×). `import typer` and root
    `--help` are unchanged.
 3. **Interpreter shutdown takes about 35 ms (21%) of a run.** That's the time
    between the command function returning and the process exiting. It's about
@@ -54,8 +54,8 @@ noise on this VM is about ±10 ms (the interquartile range of a Typer case is
 5. **Rich adds 70–75 ms to `--help` and error messages, doubling the cost
    of `--help`.** `typer.rich_utils` imports `rich.markdown` (markdown-it-py,
    Pygments) and `rich.traceback` at module level. They're only needed for
-   `rich_markup_mode="markdown"` and pretty tracebacks, and they account for
-   about 45 ms of the Rich cost.
+   `rich_markup_mode="markdown"` and pretty tracebacks. Importing them lazily
+   saved 33–38 ms per Rich `--help` or error message in an A/B run.
 6. **The worst paths pay for both.** Subcommand `--help` is 100 ms slower than
    root `--help`, because the parent group's `None`-valued flags load Pydantic
    before the eager `--help` exits. Rich error messages (about 237 ms) load
@@ -75,9 +75,8 @@ Ranked by impact for typical CLIs. None of these were applied to this branch.
    parameters, without using the adapter, so `process_value` can do the same
    before calling `get_runtime_param()`. The 3-line change is in
    [`experiments/skip-none-coercion.patch`](experiments/skip-none-coercion.patch).
-   In an A/B run it brought commands with no parameters or only flags,
-   subcommand `--help` and missing-argument errors back to 0.28.0 speed:
-   92–105 ms faster, 39–58% (see
+   It brought commands with no parameters or only flags, subcommand `--help`
+   and missing-argument errors back to 0.28.0 speed, about 90 ms faster (see
    [the experiment](#experiment-skip-none-before-building-the-adapter)). The
    test suite gives the same result with and without it (1634 passed,
    29 skipped, 3 xfailed).
@@ -91,9 +90,12 @@ Ranked by impact for typical CLIs. None of these were applied to this branch.
    instead of 165 ms.
 3. **Import `rich.markdown` and `rich.traceback` lazily in
    `typer/rich_utils.py`** (lines 17 and 24), inside the functions that use
-   `Markdown` and `Traceback`. Rich's other modules cost about 61 ms to
-   import; adding these two costs about 114 ms, so this saves about 45 ms on
-   every Rich `--help` and error message.
+   `Markdown` and `Traceback`. The change is in
+   [`experiments/lazy-rich-imports.patch`](experiments/lazy-rich-imports.patch).
+   In an alternating A/B run it saved 33–38 ms (13–25%) on every Rich
+   `--help` and error message (see
+   [the experiment](#experiment-lazy-rich-imports)), and the test suite gives
+   the same result.
 4. **Defer standard-library imports used only on rare paths**: `platform` and
    `subprocess` in `typer/main.py` (used only by `launch()`), `traceback`
    (exception hook), `difflib` in `typer/core.py` (typo suggestions), and
@@ -107,7 +109,8 @@ What app authors can do today:
 
 * Set `TYPER_USE_RICH=0`, or create the app with
   `typer.Typer(rich_markup_mode=None)`. Help output and error messages then
-  skip Rich: `--help` drops from about 150 ms to 75 ms.
+  skip Rich entirely (checked with `-X importtime`: no Rich module is
+  loaded), and `--help` drops from about 150 ms to 75 ms.
 * Install with bytecode compilation (pip does this by default; for uv set
   `UV_COMPILE_BYTECODE=1` or pass `--compile-bytecode`). Without it, the first
   run compiles Typer, Pydantic and Rich from source: the basic app took
@@ -201,6 +204,9 @@ Wall time of importing the Rich modules `typer.rich_utils` uses (median of
 | … + `rich.markdown` | 106.5 ms |
 | … + both (what `typer.rich_utils` imports today) | 113.7 ms |
 
+These are wall times of separate processes, so they also include each
+module set's shutdown cost; the measured saving is in
+[the lazy-import experiment](#experiment-lazy-rich-imports).
 `rich.markdown` pulls in markdown-it-py and, through `rich.syntax`, Pygments;
 `rich.traceback` also pulls in Pygments. `typer/rich_utils.py` only builds a
 `Markdown` object when `markup_mode == "markdown"` (line 177), and a
@@ -381,10 +387,45 @@ pooled, with each run's own median in brackets.
 The patch helps wherever every non-flag parameter is unset: commands with
 no parameters or only flags, `--help` on subcommands, and errors raised
 before any value is validated. Those cases land within a few milliseconds
-of 0.28.0. Commands that pass a value (`arg-required`, `typer-run`,
-`app-*-commands`, `bad-int`) still load Pydantic for that value, so they
-don't change beyond run-to-run noise. The two unpatched runs differ from
-each other by up to 21 ms. Recommendation 2 is what would speed those up.
+of 0.28.0.
+
+The machine drifted between these runs. `import typer`, which the patch
+can't affect, came out 9% faster in the patched run, and so did the cases
+that still load Pydantic for a value (`arg-required`, `typer-run`). So part
+of each change above is drift. Against the main 40-launch run, the improved
+cases are 87–94 ms faster: no parameters 165.6 → 72.1, flag only
+165.4 → 78.1, subcommand `--help` 248.3 → 153.9, missing argument
+236.9 → 150.1 (Rich) and 167.1 → 76.8 (no Rich). Commands that pass a value
+still load Pydantic for it. Recommendation 2 is what would speed those up.
+
+### Experiment: lazy Rich imports
+
+An A/B run of Typer 0.29.3 with and without
+[`experiments/lazy-rich-imports.patch`](experiments/lazy-rich-imports.patch),
+which moves the `rich.markdown` and `rich.traceback` imports into the two
+functions that use them. To cancel drift, the two builds ran alternately in
+4 chunks of 10 launches each; each column pools all 40 launches (Python
+3.11, ms).
+
+| Case | 0.29.3 | 0.29.3 + patch | Change |
+|---|---:|---:|---:|
+| `baseline/python-floor` | 10.9 | 11.4 | +0.4 (+4%) |
+| `baseline/import-typer` | 66.1 | 67.4 | +1.3 (+2%) |
+| `shape/typer-run` | 172.5 | 173.0 | +0.5 (+0%) |
+| `help/typer-run` (Rich) | 153.6 | 115.8 | **-37.8 (-25%)** |
+| `help/app-root` (Rich) | 148.7 | 110.9 | **-37.8 (-25%)** |
+| `help/subcommand` (Rich) | 245.4 | 212.8 | **-32.6 (-13%)** |
+| `help/app-50-commands` (Rich) | 171.2 | 134.9 | **-36.3 (-21%)** |
+| `error/missing-argument` (Rich) | 240.5 | 202.2 | **-38.3 (-16%)** |
+| `error/bad-int` (Rich) | 236.6 | 201.0 | **-35.5 (-15%)** |
+| `help/typer-run-no-rich` | 72.5 | 74.7 | +2.2 (+3%) |
+| `error/bad-int-no-rich` | 163.6 | 166.6 | +3.0 (+2%) |
+
+Every Rich help and error path is 33–38 ms faster; the cases that don't use
+Rich are unchanged. The test suite gives the same result with the patch
+(1634 passed, 29 skipped, 3 xfailed). Combined with recommendation 1,
+subcommand `--help` should drop from about 250 ms to about 115–120 ms. That
+figure is an estimate; the two patches were not measured together.
 
 ### First run without compiled bytecode
 

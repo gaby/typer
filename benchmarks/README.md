@@ -52,14 +52,18 @@ The scripts need only the standard library, and any Python 3.11+ can run them.
 |---|---|
 | `run_benchmarks.py` | Validates and times every case. `--only 'help/*'` filters cases, `--tty` also times help and error output on a pseudo-terminal, and `--no-bytecode` measures the first run after an install without compiled bytecode (it deletes the target's `__pycache__` dirs, so use a throwaway venv). |
 | `profile_imports.py` | Runs selected cases with `-X importtime` and sums self time per package (Typer, vendored Click, Pydantic, Rich, markdown-it, Pygments, stdlib). |
-| `profile_inprocess.py` | Splits one invocation into stages, measures Pydantic `TypeAdapter` cost per annotation, how `get_command` scales with app size, per-call cost inside a running process (as in tests), the cost of selected import sets, and interpreter shutdown cost. The `waterfall`, `adapters` and `import-splits` sections use Typer internals that exist only from 0.29.0 on; pick sections with `--section`. |
+| `profile_inprocess.py` | Splits one invocation into stages, measures Pydantic `TypeAdapter` cost per annotation, how `get_command` scales with app size, per-call cost inside a running process (as in tests), the cost of selected import sets, and interpreter shutdown cost. The `waterfall`, `adapters`, `import-splits` and `shutdown` sections use Typer internals that exist only from 0.29.0 on; pick sections with `--section`. |
 | `compare.py` | Puts several result files side by side. |
 
-[`experiments/skip-none-coercion.patch`](experiments/skip-none-coercion.patch)
-is the change evaluated in recommendation 1 of the report. Its A/B results are
-in [`results/experiment-skip-none/`](results/experiment-skip-none). To repeat
-it, apply the patch to a checkout, install that checkout into a second venv,
-and run `run_benchmarks.py` against both.
+[`experiments/`](experiments) holds the two changes evaluated in the report:
+`skip-none-coercion.patch` (recommendation 1) and `lazy-rich-imports.patch`
+(recommendation 3). Their A/B results are in
+[`results/experiment-skip-none/`](results/experiment-skip-none) and
+[`results/experiment-lazy-rich/`](results/experiment-lazy-rich). To repeat an
+experiment, apply the patch to a checkout with `git apply`, install that
+checkout into a second venv, and run `run_benchmarks.py` against both. Run
+the two venvs alternately in short chunks (for example `--samples 10`, four
+times each) so that machine drift affects both equally.
 
 ## Caveats
 

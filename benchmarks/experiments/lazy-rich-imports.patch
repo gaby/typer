@@ -1,0 +1,84 @@
+diff --git a/typer/rich_utils.py b/typer/rich_utils.py
+index c724035..97af373 100644
+--- a/typer/rich_utils.py
++++ b/typer/rich_utils.py
+@@ -6,7 +6,7 @@ from collections import defaultdict
+ from collections.abc import Iterable
+ from gettext import gettext as _
+ from os import getenv
+-from typing import Any, Literal
++from typing import TYPE_CHECKING, Any, Literal
+
+ from rich import box
+ from rich.align import Align
+@@ -14,19 +14,21 @@ from rich.columns import Columns
+ from rich.console import Console, RenderableType, group
+ from rich.emoji import Emoji
+ from rich.highlighter import RegexHighlighter
+-from rich.markdown import Markdown
+ from rich.markup import escape
+ from rich.padding import Padding
+ from rich.panel import Panel
+ from rich.table import Table
+ from rich.text import Text
+ from rich.theme import Theme
+-from rich.traceback import Traceback
+ from typer.models import DeveloperExceptionConfig
+
+ from . import _click
+ from .core import TyperArgument, TyperGroup, TyperOption
+
++if TYPE_CHECKING:
++    from rich.markdown import Markdown
++    from rich.traceback import Traceback
++
+ # Default styles
+ STYLE_OPTION = "bold cyan"
+ STYLE_SWITCH = "bold green"
+@@ -164,7 +166,7 @@ def _get_rich_console(stderr: bool = False) -> Console:
+
+ def _make_rich_text(
+     *, text: str, style: str = "", markup_mode: MarkupModeStrict
+-) -> Markdown | Text:
++) -> "Markdown | Text":
+     """Take a string, remove indentations, and return styled text.
+
+     If `markup_mode` is `"rich"`, the text is parsed for Rich markup strings.
+@@ -173,6 +175,8 @@ def _make_rich_text(
+     # Remove indentations from input text
+     text = inspect.cleandoc(text)
+     if markup_mode == MARKUP_MODE_MARKDOWN:
++        from rich.markdown import Markdown
++
+         text = Emoji.replace(text)
+         return Markdown(text, style=style)
+     else:
+@@ -188,7 +192,7 @@ def _get_help_text(
+     *,
+     obj: _click.Command | TyperGroup,
+     markup_mode: MarkupModeStrict,
+-) -> Iterable[Markdown | Text]:
++) -> Iterable["Markdown | Text"]:
+     """Build primary help text for a click command or group.
+
+     Returns the prose help text for a command or group, rendered either as a
+@@ -328,7 +332,7 @@ def _make_command_help(
+     *,
+     help_text: str,
+     markup_mode: MarkupModeStrict,
+-) -> Text | Markdown:
++) -> "Text | Markdown":
+     """Build cli help text for a click group command.
+
+     That is, when calling help on groups with multiple subcommands
+@@ -744,7 +748,9 @@ def get_traceback(
+     exc: BaseException,
+     exception_config: DeveloperExceptionConfig,
+     internal_dir_names: list[str],
+-) -> Traceback:
++) -> "Traceback":
++    from rich.traceback import Traceback
++
+     rich_tb = Traceback.from_exception(
+         type(exc),
+         exc,
