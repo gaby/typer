@@ -1,0 +1,11 @@
+--- a/typer/core.py
++++ b/typer/core.py
+@@ -106,4 +106,7 @@
+     def process_value(self, ctx: _click.Context, value: Any) -> Any:
++        if value is None:
++            # Same result as RuntimeParam.coerce(None), without building a TypeAdapter
++            value = () if (self.multiple or self.nargs == -1) else None
+         # Skip coercion for bool flags that already yield bools
+-        if not (self.type_descriptor.annotation is bool and isinstance(value, bool)):
++        elif not (self.type_descriptor.annotation is bool and isinstance(value, bool)):
+             value = self.get_runtime_param().coerce(value, param=self, ctx=ctx)

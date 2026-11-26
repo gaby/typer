@@ -1,0 +1,26 @@
+"""A list option that can be repeated (--tag a --tag b)."""
+
+import os
+import time
+from typing import Annotated
+
+import typer
+
+
+def _mark() -> None:
+    """Benchmark hook: record when user code starts running."""
+    path = os.environ.get("BENCH_MARK_FILE")
+    if path:
+        with open(path, "w") as f:
+            f.write(str(time.time_ns()))
+
+
+def main(
+    tag: Annotated[list[str] | None, typer.Option(help="Tags.")] = None,
+) -> None:
+    _mark()
+    typer.echo(f"Tags: {', '.join(tag or [])}")
+
+
+if __name__ == "__main__":
+    typer.run(main)

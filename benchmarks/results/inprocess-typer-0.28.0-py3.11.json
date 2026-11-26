@@ -1,0 +1,46 @@
+{
+ "label": "typer-0.28.0-py3.11",
+ "get_command": [
+  {
+   "commands": 1,
+   "params_per_command": 1,
+   "median_ms": 0.154
+  },
+  {
+   "commands": 1,
+   "params_per_command": 3,
+   "median_ms": 0.202
+  },
+  {
+   "commands": 1,
+   "params_per_command": 10,
+   "median_ms": 0.305
+  },
+  {
+   "commands": 1,
+   "params_per_command": 30,
+   "median_ms": 0.616
+  },
+  {
+   "commands": 10,
+   "params_per_command": 3,
+   "median_ms": 0.94
+  },
+  {
+   "commands": 50,
+   "params_per_command": 3,
+   "median_ms": 4.252
+  },
+  {
+   "commands": 200,
+   "params_per_command": 3,
+   "median_ms": 16.658
+  }
+ ],
+ "warm_invoke": {
+  "Typer app(), 1 command": 325.3,
+  "Typer app(), 50 commands": 4484.8,
+  "CliRunner().invoke(), 1 command": 386.7,
+  "argparse: build parser + parse": 242.3
+ }
+}

@@ -1,0 +1,319 @@
+{
+ "label": "typer-0.29.3-py3.11",
+ "waterfall": [
+  {
+   "case": "no_params.py",
+   "stages_ms": {
+    "interpreter start": 9.39,
+    "import typer": 47.66,
+    "app module body": 0.63,
+    "build command (get_command)": 0.07,
+    "parse + validate params": 74.43,
+    "command body + exit": 0.13,
+    "interpreter shutdown": 36.6,
+    "(other: driver overhead)": 1.43,
+    "TOTAL": 175.81,
+    "  of which Pydantic adapters": 73.96,
+    "  of which first adapter (incl. Pydantic import)": 73.96
+   },
+   "adapters_built": 1,
+   "pydantic_loaded": true,
+   "rich_loaded": false
+  },
+  {
+   "case": "basic.py World --count 3 --loud",
+   "stages_ms": {
+    "interpreter start": 9.28,
+    "import typer": 46.39,
+    "app module body": 0.85,
+    "build command (get_command)": 0.36,
+    "parse + validate params": 71.93,
+    "command body + exit": 0.18,
+    "interpreter shutdown": 35.4,
+    "(other: driver overhead)": 1.54,
+    "TOTAL": 165.85,
+    "  of which Pydantic adapters": 71.22,
+    "  of which first adapter (incl. Pydantic import)": 70.81
+   },
+   "adapters_built": 3,
+   "pydantic_loaded": true,
+   "rich_loaded": false
+  },
+  {
+   "case": "multi_commands.py hello World",
+   "stages_ms": {
+    "interpreter start": 9.83,
+    "import typer": 49.2,
+    "app module body": 0.85,
+    "build command (get_command)": 0.66,
+    "parse + validate params": 71.15,
+    "command body + exit": 0.15,
+    "interpreter shutdown": 35.46,
+    "(other: driver overhead)": 1.47,
+    "TOTAL": 171.99,
+    "  of which Pydantic adapters": 70.23,
+    "  of which first adapter (incl. Pydantic import)": 69.62
+   },
+   "adapters_built": 5,
+   "pydantic_loaded": true,
+   "rich_loaded": false
+  },
+  {
+   "case": "scale_commands.py cmd25 World --count 2",
+   "stages_ms": {
+    "interpreter start": 9.84,
+    "import typer": 47.06,
+    "app module body": 3.14,
+    "build command (get_command)": 7.38,
+    "parse + validate params": 72.28,
+    "command body + exit": 0.35,
+    "interpreter shutdown": 35.26,
+    "(other: driver overhead)": 1.47,
+    "TOTAL": 181.05,
+    "  of which Pydantic adapters": 71.38,
+    "  of which first adapter (incl. Pydantic import)": 70.72
+   },
+   "adapters_built": 6,
+   "pydantic_loaded": true,
+   "rich_loaded": false
+  },
+  {
+   "case": "basic.py --help",
+   "stages_ms": {
+    "interpreter start": 9.12,
+    "import typer": 46.32,
+    "app module body": 0.8,
+    "build command (get_command)": 0.38,
+    "parse + render help": 64.45,
+    "interpreter shutdown": 30.41,
+    "(other: driver overhead)": 1.48,
+    "TOTAL": 156.18,
+    "  of which Pydantic adapters": 0.0,
+    "  of which first adapter (incl. Pydantic import)": 0.0
+   },
+   "adapters_built": 0,
+   "pydantic_loaded": false,
+   "rich_loaded": true
+  }
+ ],
+ "adapters": [
+  {
+   "annotation": "bool (also --help, completion flags)",
+   "import_typer_ms": 43.725,
+   "import_pydantic_ms": 63.24,
+   "first_build_ms": 11.79,
+   "warm_build_us": 65.516
+  },
+  {
+   "annotation": "str",
+   "import_typer_ms": 41.824,
+   "import_pydantic_ms": 61.408,
+   "first_build_ms": 11.49,
+   "warm_build_us": 65.629
+  },
+  {
+   "annotation": "int",
+   "import_typer_ms": 40.872,
+   "import_pydantic_ms": 59.771,
+   "first_build_ms": 11.397,
+   "warm_build_us": 28.362
+  },
+  {
+   "annotation": "int with min/max",
+   "import_typer_ms": 40.473,
+   "import_pydantic_ms": 60.889,
+   "first_build_ms": 11.773,
+   "warm_build_us": 119.015
+  },
+  {
+   "annotation": "float",
+   "import_typer_ms": 39.614,
+   "import_pydantic_ms": 58.17,
+   "first_build_ms": 11.596,
+   "warm_build_us": 28.688
+  },
+  {
+   "annotation": "Enum",
+   "import_typer_ms": 40.05,
+   "import_pydantic_ms": 57.612,
+   "first_build_ms": 11.096,
+   "warm_build_us": 87.482
+  },
+  {
+   "annotation": "Literal",
+   "import_typer_ms": 43.912,
+   "import_pydantic_ms": 60.25,
+   "first_build_ms": 11.731,
+   "warm_build_us": 89.183
+  },
+  {
+   "annotation": "Path",
+   "import_typer_ms": 41.049,
+   "import_pydantic_ms": 60.854,
+   "first_build_ms": 12.046,
+   "warm_build_us": 87.649
+  },
+  {
+   "annotation": "Path, exists=True",
+   "import_typer_ms": 40.288,
+   "import_pydantic_ms": 57.467,
+   "first_build_ms": 11.978,
+   "warm_build_us": 91.253
+  },
+  {
+   "annotation": "datetime",
+   "import_typer_ms": 42.048,
+   "import_pydantic_ms": 63.733,
+   "first_build_ms": 11.91,
+   "warm_build_us": 27.647
+  },
+  {
+   "annotation": "UUID",
+   "import_typer_ms": 41.387,
+   "import_pydantic_ms": 62.809,
+   "first_build_ms": 11.475,
+   "warm_build_us": 34.558
+  },
+  {
+   "annotation": "list[str]",
+   "import_typer_ms": 46.87,
+   "import_pydantic_ms": 68.074,
+   "first_build_ms": 14.298,
+   "warm_build_us": 178.637
+  },
+  {
+   "annotation": "tuple[str, int]",
+   "import_typer_ms": 41.024,
+   "import_pydantic_ms": 58.907,
+   "first_build_ms": 12.376,
+   "warm_build_us": 197.677
+  }
+ ],
+ "get_command": [
+  {
+   "commands": 1,
+   "params_per_command": 1,
+   "median_ms": 0.269
+  },
+  {
+   "commands": 1,
+   "params_per_command": 3,
+   "median_ms": 0.288
+  },
+  {
+   "commands": 1,
+   "params_per_command": 10,
+   "median_ms": 0.319
+  },
+  {
+   "commands": 1,
+   "params_per_command": 30,
+   "median_ms": 0.641
+  },
+  {
+   "commands": 10,
+   "params_per_command": 3,
+   "median_ms": 0.944
+  },
+  {
+   "commands": 50,
+   "params_per_command": 3,
+   "median_ms": 4.705
+  },
+  {
+   "commands": 200,
+   "params_per_command": 3,
+   "median_ms": 19.454
+  }
+ ],
+ "warm_invoke": {
+  "Typer app(), 1 command": 668.9,
+  "Typer app(), 50 commands": 5610.4,
+  "CliRunner().invoke(), 1 command": 919.3,
+  "argparse: build parser + parse": 220.7
+ },
+ "import_splits": [
+  {
+   "what": "python -c pass",
+   "median_ms": 11.18,
+   "min_ms": 9.14
+  },
+  {
+   "what": "import typer",
+   "median_ms": 67.8,
+   "min_ms": 64.99
+  },
+  {
+   "what": "import typer + typer._adapters (Pydantic)",
+   "median_ms": 134.96,
+   "min_ms": 119.43
+  },
+  {
+   "what": "import typer + first bool TypeAdapter",
+   "median_ms": 165.6,
+   "min_ms": 148.71
+  },
+  {
+   "what": "import typer + typer.rich_utils",
+   "median_ms": 148.29,
+   "min_ms": 122.39
+  },
+  {
+   "what": "Rich modules rich_utils needs, minus markdown/traceback",
+   "median_ms": 60.96,
+   "min_ms": 58.16
+  },
+  {
+   "what": "... + rich.markdown",
+   "median_ms": 106.54,
+   "min_ms": 92.22
+  },
+  {
+   "what": "... + rich.traceback",
+   "median_ms": 87.56,
+   "min_ms": 74.61
+  },
+  {
+   "what": "... + rich.markdown + rich.traceback (what rich_utils imports)",
+   "median_ms": 113.65,
+   "min_ms": 99.42
+  }
+ ],
+ "shutdown": [
+  {
+   "state": "python -c pass",
+   "normal exit": 12.06,
+   "os._exit(0)": 9.0,
+   "gc.freeze() then exit": 9.7,
+   "shutdown_ms": 3.06
+  },
+  {
+   "state": "import typer",
+   "normal exit": 72.02,
+   "os._exit(0)": 63.65,
+   "gc.freeze() then exit": 60.7,
+   "shutdown_ms": 8.37
+  },
+  {
+   "state": "import typer + 3 Pydantic adapters",
+   "normal exit": 168.9,
+   "os._exit(0)": 140.55,
+   "gc.freeze() then exit": 151.42,
+   "shutdown_ms": 28.35
+  },
+  {
+   "state": "import typer + typer.rich_utils",
+   "normal exit": 133.2,
+   "os._exit(0)": 111.49,
+   "gc.freeze() then exit": 131.11,
+   "shutdown_ms": 21.71
+  },
+  {
+   "state": "run a 3-param command (standalone)",
+   "normal exit": 172.68,
+   "os._exit(0)": 132.97,
+   "gc.freeze() then exit": 134.81,
+   "shutdown_ms": 39.71
+  }
+ ]
+}

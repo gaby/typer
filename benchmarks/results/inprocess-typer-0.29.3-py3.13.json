@@ -1,0 +1,183 @@
+{
+ "label": "typer-0.29.3-py3.13",
+ "waterfall": [
+  {
+   "case": "no_params.py",
+   "stages_ms": {
+    "interpreter start": 14.12,
+    "import typer": 62.05,
+    "app module body": 0.91,
+    "build command (get_command)": 0.13,
+    "parse + validate params": 85.9,
+    "command body + exit": 0.17,
+    "interpreter shutdown": 39.41,
+    "(other: driver overhead)": 2.13,
+    "TOTAL": 203.98,
+    "  of which Pydantic adapters": 85.23,
+    "  of which first adapter (incl. Pydantic import)": 85.23
+   },
+   "adapters_built": 1,
+   "pydantic_loaded": true,
+   "rich_loaded": false
+  },
+  {
+   "case": "basic.py World --count 3 --loud",
+   "stages_ms": {
+    "interpreter start": 13.1,
+    "import typer": 63.04,
+    "app module body": 1.12,
+    "build command (get_command)": 0.44,
+    "parse + validate params": 85.8,
+    "command body + exit": 0.21,
+    "interpreter shutdown": 40.85,
+    "(other: driver overhead)": 2.03,
+    "TOTAL": 205.95,
+    "  of which Pydantic adapters": 84.99,
+    "  of which first adapter (incl. Pydantic import)": 84.58
+   },
+   "adapters_built": 3,
+   "pydantic_loaded": true,
+   "rich_loaded": false
+  },
+  {
+   "case": "multi_commands.py hello World",
+   "stages_ms": {
+    "interpreter start": 12.69,
+    "import typer": 57.64,
+    "app module body": 1.04,
+    "build command (get_command)": 0.92,
+    "parse + validate params": 84.97,
+    "command body + exit": 0.18,
+    "interpreter shutdown": 41.54,
+    "(other: driver overhead)": 2.09,
+    "TOTAL": 197.65,
+    "  of which Pydantic adapters": 84.05,
+    "  of which first adapter (incl. Pydantic import)": 83.34
+   },
+   "adapters_built": 5,
+   "pydantic_loaded": true,
+   "rich_loaded": false
+  },
+  {
+   "case": "scale_commands.py cmd25 World --count 2",
+   "stages_ms": {
+    "interpreter start": 11.32,
+    "import typer": 50.87,
+    "app module body": 2.76,
+    "build command (get_command)": 7.34,
+    "parse + validate params": 78.62,
+    "command body + exit": 0.32,
+    "interpreter shutdown": 39.06,
+    "(other: driver overhead)": 1.67,
+    "TOTAL": 199.45,
+    "  of which Pydantic adapters": 77.66,
+    "  of which first adapter (incl. Pydantic import)": 76.94
+   },
+   "adapters_built": 6,
+   "pydantic_loaded": true,
+   "rich_loaded": false
+  },
+  {
+   "case": "basic.py --help",
+   "stages_ms": {
+    "interpreter start": 11.01,
+    "import typer": 54.24,
+    "app module body": 0.92,
+    "build command (get_command)": 0.41,
+    "parse + render help": 79.12,
+    "interpreter shutdown": 37.62,
+    "(other: driver overhead)": 1.76,
+    "TOTAL": 185.18,
+    "  of which Pydantic adapters": 0.0,
+    "  of which first adapter (incl. Pydantic import)": 0.0
+   },
+   "adapters_built": 0,
+   "pydantic_loaded": false,
+   "rich_loaded": true
+  }
+ ],
+ "import_splits": [
+  {
+   "what": "python -c pass",
+   "median_ms": 11.93,
+   "min_ms": 11.03
+  },
+  {
+   "what": "import typer",
+   "median_ms": 79.3,
+   "min_ms": 68.6
+  },
+  {
+   "what": "import typer + typer._adapters (Pydantic)",
+   "median_ms": 164.53,
+   "min_ms": 138.82
+  },
+  {
+   "what": "import typer + first bool TypeAdapter",
+   "median_ms": 170.87,
+   "min_ms": 160.52
+  },
+  {
+   "what": "import typer + typer.rich_utils",
+   "median_ms": 173.56,
+   "min_ms": 150.77
+  },
+  {
+   "what": "Rich modules rich_utils needs, minus markdown/traceback",
+   "median_ms": 82.77,
+   "min_ms": 66.65
+  },
+  {
+   "what": "... + rich.markdown",
+   "median_ms": 120.0,
+   "min_ms": 106.7
+  },
+  {
+   "what": "... + rich.traceback",
+   "median_ms": 108.24,
+   "min_ms": 91.6
+  },
+  {
+   "what": "... + rich.markdown + rich.traceback (what rich_utils imports)",
+   "median_ms": 166.37,
+   "min_ms": 120.47
+  }
+ ],
+ "shutdown": [
+  {
+   "state": "python -c pass",
+   "normal exit": 14.96,
+   "os._exit(0)": 12.42,
+   "gc.freeze() then exit": 13.31,
+   "shutdown_ms": 2.54
+  },
+  {
+   "state": "import typer",
+   "normal exit": 85.02,
+   "os._exit(0)": 71.17,
+   "gc.freeze() then exit": 68.64,
+   "shutdown_ms": 13.86
+  },
+  {
+   "state": "import typer + 3 Pydantic adapters",
+   "normal exit": 200.14,
+   "os._exit(0)": 148.08,
+   "gc.freeze() then exit": 154.27,
+   "shutdown_ms": 52.06
+  },
+  {
+   "state": "import typer + typer.rich_utils",
+   "normal exit": 157.28,
+   "os._exit(0)": 150.71,
+   "gc.freeze() then exit": 141.28,
+   "shutdown_ms": 6.57
+  },
+  {
+   "state": "run a 3-param command (standalone)",
+   "normal exit": 199.7,
+   "os._exit(0)": 156.23,
+   "gc.freeze() then exit": 167.39,
+   "shutdown_ms": 43.47
+  }
+ ]
+}

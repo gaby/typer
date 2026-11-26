@@ -1,0 +1,818 @@
+{
+ "baseline/python-floor": {
+  "title": "python -c pass (interpreter start-up floor)",
+  "groups_ms": {
+   "typer._click (vendored Click)": 0.0,
+   "typer (own code)": 0.0,
+   "pydantic": 0.0,
+   "pydantic_core": 0.0,
+   "pydantic deps": 0.0,
+   "rich": 0.0,
+   "markdown_it + mdurl": 0.0,
+   "pygments": 0.0,
+   "click (upstream)": 0.0,
+   "stdlib": 4.95,
+   "other": 0.14,
+   "total": 5.06
+  },
+  "modules_imported": 24,
+  "top_modules_ms": [
+   [
+    "_collections_abc",
+    0.84
+   ],
+   [
+    "site",
+    0.51
+   ],
+   [
+    "encodings.aliases",
+    0.46
+   ],
+   [
+    "encodings",
+    0.46
+   ],
+   [
+    "os",
+    0.35
+   ],
+   [
+    "_frozen_importlib_external",
+    0.32
+   ],
+   [
+    "codecs",
+    0.29
+   ],
+   [
+    "posix",
+    0.27
+   ],
+   [
+    "encodings.utf_8",
+    0.2
+   ],
+   [
+    "time",
+    0.2
+   ],
+   [
+    "io",
+    0.18
+   ],
+   [
+    "abc",
+    0.14
+   ]
+  ]
+ },
+ "baseline/import-typer": {
+  "title": "python -c \"import typer\"",
+  "groups_ms": {
+   "typer._click (vendored Click)": 5.28,
+   "typer (own code)": 10.17,
+   "pydantic": 0.0,
+   "pydantic_core": 0.0,
+   "pydantic deps": 0.0,
+   "rich": 0.0,
+   "markdown_it + mdurl": 0.0,
+   "pygments": 0.0,
+   "click (upstream)": 0.0,
+   "stdlib": 43.28,
+   "other": 1.0,
+   "total": 63.11
+  },
+  "modules_imported": 135,
+  "top_modules_ms": [
+   [
+    "typer._coercion",
+    3.1
+   ],
+   [
+    "typing",
+    2.35
+   ],
+   [
+    "typer.core",
+    1.95
+   ],
+   [
+    "inspect",
+    1.91
+   ],
+   [
+    "platform",
+    1.68
+   ],
+   [
+    "enum",
+    1.45
+   ],
+   [
+    "ipaddress",
+    1.35
+   ],
+   [
+    "typer._click.termui",
+    1.1
+   ],
+   [
+    "typer.params",
+    1.08
+   ],
+   [
+    "re._constants",
+    1.07
+   ],
+   [
+    "_ast",
+    1.06
+   ],
+   [
+    "datetime",
+    1.03
+   ]
+  ]
+ },
+ "baseline/argparse": {
+  "title": "basic.py written with argparse (stdlib)",
+  "groups_ms": {
+   "typer._click (vendored Click)": 0.0,
+   "typer (own code)": 0.0,
+   "pydantic": 0.0,
+   "pydantic_core": 0.0,
+   "pydantic deps": 0.0,
+   "rich": 0.0,
+   "markdown_it + mdurl": 0.0,
+   "pygments": 0.0,
+   "click (upstream)": 0.0,
+   "stdlib": 17.0,
+   "other": 0.11,
+   "total": 17.11
+  },
+  "modules_imported": 56,
+  "top_modules_ms": [
+   [
+    "enum",
+    1.31
+   ],
+   [
+    "argparse",
+    1.24
+   ],
+   [
+    "locale",
+    1.0
+   ],
+   [
+    "collections",
+    0.82
+   ],
+   [
+    "gettext",
+    0.82
+   ],
+   [
+    "_sre",
+    0.77
+   ],
+   [
+    "shutil",
+    0.74
+   ],
+   [
+    "_collections_abc",
+    0.68
+   ],
+   [
+    "re",
+    0.56
+   ],
+   [
+    "encodings",
+    0.56
+   ],
+   [
+    "functools",
+    0.54
+   ],
+   [
+    "re._parser",
+    0.48
+   ]
+  ]
+ },
+ "baseline/click": {
+  "title": "basic.py written with upstream Click",
+  "groups_ms": {
+   "typer._click (vendored Click)": 0.0,
+   "typer (own code)": 0.0,
+   "pydantic": 0.0,
+   "pydantic_core": 0.0,
+   "pydantic deps": 0.0,
+   "rich": 0.0,
+   "markdown_it + mdurl": 0.0,
+   "pygments": 0.0,
+   "click (upstream)": 6.26,
+   "stdlib": 29.47,
+   "other": 0.11,
+   "total": 35.51
+  },
+  "modules_imported": 84,
+  "top_modules_ms": [
+   [
+    "typing",
+    2.37
+   ],
+   [
+    "enum",
+    2.01
+   ],
+   [
+    "click.types",
+    1.71
+   ],
+   [
+    "inspect",
+    1.55
+   ],
+   [
+    "platform",
+    1.52
+   ],
+   [
+    "click.core",
+    1.42
+   ],
+   [
+    "ast",
+    1.1
+   ],
+   [
+    "_weakrefset",
+    1.02
+   ],
+   [
+    "datetime",
+    0.96
+   ],
+   [
+    "collections",
+    0.94
+   ],
+   [
+    "locale",
+    0.92
+   ],
+   [
+    "tokenize",
+    0.84
+   ]
+  ]
+ },
+ "params/no-params": {
+  "title": "no parameters",
+  "groups_ms": {
+   "typer._click (vendored Click)": 4.55,
+   "typer (own code)": 17.73,
+   "pydantic": 25.14,
+   "pydantic_core": 9.9,
+   "pydantic deps": 9.46,
+   "rich": 0.0,
+   "markdown_it + mdurl": 0.0,
+   "pygments": 0.0,
+   "click (upstream)": 0.0,
+   "stdlib": 62.76,
+   "other": 1.31,
+   "total": 132.32
+  },
+  "modules_imported": 247,
+  "top_modules_ms": [
+   [
+    "pydantic_core.core_schema",
+    7.98
+   ],
+   [
+    "typer._adapters",
+    6.56
+   ],
+   [
+    "pydantic.types",
+    5.33
+   ],
+   [
+    "annotated_types",
+    5.05
+   ],
+   [
+    "pydantic._internal._decorators",
+    2.93
+   ],
+   [
+    "typer._coercion",
+    2.88
+   ],
+   [
+    "typing",
+    2.31
+   ],
+   [
+    "typing_extensions",
+    2.22
+   ],
+   [
+    "pydantic.json_schema",
+    2.09
+   ],
+   [
+    "_hashlib",
+    2.03
+   ],
+   [
+    "typer.core",
+    1.7
+   ],
+   [
+    "platform",
+    1.64
+   ]
+  ]
+ },
+ "shape/typer-run": {
+  "title": "typer.run(main): arg + int option + bool flag",
+  "groups_ms": {
+   "typer._click (vendored Click)": 4.83,
+   "typer (own code)": 15.01,
+   "pydantic": 27.08,
+   "pydantic_core": 10.58,
+   "pydantic deps": 10.06,
+   "rich": 0.0,
+   "markdown_it + mdurl": 0.0,
+   "pygments": 0.0,
+   "click (upstream)": 0.0,
+   "stdlib": 59.54,
+   "other": 1.31,
+   "total": 131.51
+  },
+  "modules_imported": 247,
+  "top_modules_ms": [
+   [
+    "pydantic_core.core_schema",
+    8.43
+   ],
+   [
+    "typer._adapters",
+    5.72
+   ],
+   [
+    "pydantic.types",
+    5.47
+   ],
+   [
+    "annotated_types",
+    5.38
+   ],
+   [
+    "pydantic._internal._decorators",
+    2.93
+   ],
+   [
+    "typer._coercion",
+    2.66
+   ],
+   [
+    "typing",
+    2.35
+   ],
+   [
+    "typing_extensions",
+    2.24
+   ],
+   [
+    "pydantic.json_schema",
+    2.03
+   ],
+   [
+    "_hashlib",
+    1.94
+   ],
+   [
+    "enum",
+    1.88
+   ],
+   [
+    "inspect",
+    1.86
+   ]
+  ]
+ },
+ "shape/app-50-commands": {
+  "title": "Typer() app, 50 commands x 3 params, run one",
+  "groups_ms": {
+   "typer._click (vendored Click)": 4.78,
+   "typer (own code)": 15.4,
+   "pydantic": 25.94,
+   "pydantic_core": 11.18,
+   "pydantic deps": 9.84,
+   "rich": 0.0,
+   "markdown_it + mdurl": 0.0,
+   "pygments": 0.0,
+   "click (upstream)": 0.0,
+   "stdlib": 60.68,
+   "other": 1.31,
+   "total": 130.47
+  },
+  "modules_imported": 247,
+  "top_modules_ms": [
+   [
+    "pydantic_core.core_schema",
+    8.99
+   ],
+   [
+    "pydantic.types",
+    5.52
+   ],
+   [
+    "typer._adapters",
+    5.47
+   ],
+   [
+    "annotated_types",
+    5.28
+   ],
+   [
+    "pydantic.json_schema",
+    2.98
+   ],
+   [
+    "pydantic._internal._decorators",
+    2.92
+   ],
+   [
+    "typer._coercion",
+    2.84
+   ],
+   [
+    "typing",
+    2.64
+   ],
+   [
+    "typing_extensions",
+    2.19
+   ],
+   [
+    "_hashlib",
+    1.98
+   ],
+   [
+    "enum",
+    1.96
+   ],
+   [
+    "inspect",
+    1.87
+   ]
+  ]
+ },
+ "help/typer-run": {
+  "title": "basic.py --help (Rich)",
+  "groups_ms": {
+   "typer._click (vendored Click)": 4.42,
+   "typer (own code)": 10.09,
+   "pydantic": 0.0,
+   "pydantic_core": 0.0,
+   "pydantic deps": 0.0,
+   "rich": 27.32,
+   "markdown_it + mdurl": 17.5,
+   "pygments": 5.95,
+   "click (upstream)": 0.0,
+   "stdlib": 47.3,
+   "other": 0.96,
+   "total": 117.32
+  },
+  "modules_imported": 301,
+  "top_modules_ms": [
+   [
+    "rich.console",
+    3.06
+   ],
+   [
+    "typer._coercion",
+    2.85
+   ],
+   [
+    "rich.traceback",
+    2.51
+   ],
+   [
+    "typing",
+    2.46
+   ],
+   [
+    "fractions",
+    2.08
+   ],
+   [
+    "rich._emoji_codes",
+    2.03
+   ],
+   [
+    "enum",
+    1.88
+   ],
+   [
+    "inspect",
+    1.86
+   ],
+   [
+    "rich.pretty",
+    1.75
+   ],
+   [
+    "platform",
+    1.61
+   ],
+   [
+    "logging",
+    1.6
+   ],
+   [
+    "typer.core",
+    1.53
+   ]
+  ]
+ },
+ "help/typer-run-no-rich": {
+  "title": "basic.py --help, TYPER_USE_RICH=0",
+  "groups_ms": {
+   "typer._click (vendored Click)": 4.91,
+   "typer (own code)": 9.61,
+   "pydantic": 0.0,
+   "pydantic_core": 0.0,
+   "pydantic deps": 0.0,
+   "rich": 0.0,
+   "markdown_it + mdurl": 0.0,
+   "pygments": 0.0,
+   "click (upstream)": 0.0,
+   "stdlib": 44.65,
+   "other": 0.8,
+   "total": 61.6
+  },
+  "modules_imported": 137,
+  "top_modules_ms": [
+   [
+    "typer._coercion",
+    3.13
+   ],
+   [
+    "typing",
+    2.64
+   ],
+   [
+    "inspect",
+    2.04
+   ],
+   [
+    "enum",
+    1.97
+   ],
+   [
+    "platform",
+    1.77
+   ],
+   [
+    "typer.core",
+    1.59
+   ],
+   [
+    "ipaddress",
+    1.14
+   ],
+   [
+    "typer.main",
+    1.1
+   ],
+   [
+    "typer._click.termui",
+    1.07
+   ],
+   [
+    "ast",
+    1.06
+   ],
+   [
+    "tokenize",
+    1.02
+   ],
+   [
+    "datetime",
+    0.98
+   ]
+  ]
+ },
+ "help/subcommand": {
+  "title": "nested.py users create --help (Rich)",
+  "groups_ms": {
+   "typer._click (vendored Click)": 5.51,
+   "typer (own code)": 18.41,
+   "pydantic": 26.18,
+   "pydantic_core": 10.56,
+   "pydantic deps": 9.93,
+   "rich": 28.23,
+   "markdown_it + mdurl": 16.42,
+   "pygments": 5.43,
+   "click (upstream)": 0.0,
+   "stdlib": 67.3,
+   "other": 1.57,
+   "total": 192.35
+  },
+  "modules_imported": 398,
+  "top_modules_ms": [
+   [
+    "pydantic_core.core_schema",
+    8.53
+   ],
+   [
+    "typer._adapters",
+    6.28
+   ],
+   [
+    "pydantic.types",
+    5.49
+   ],
+   [
+    "annotated_types",
+    5.3
+   ],
+   [
+    "rich.console",
+    2.87
+   ],
+   [
+    "rich._emoji_codes",
+    2.82
+   ],
+   [
+    "typing",
+    2.73
+   ],
+   [
+    "pydantic._internal._decorators",
+    2.72
+   ],
+   [
+    "typing_extensions",
+    2.69
+   ],
+   [
+    "typer._coercion",
+    2.61
+   ],
+   [
+    "inspect",
+    2.23
+   ],
+   [
+    "rich.traceback",
+    2.1
+   ]
+  ]
+ },
+ "error/bad-int": {
+  "title": "basic.py World --count abc (Rich)",
+  "groups_ms": {
+   "typer._click (vendored Click)": 5.04,
+   "typer (own code)": 16.14,
+   "pydantic": 26.61,
+   "pydantic_core": 9.95,
+   "pydantic deps": 9.66,
+   "rich": 29.54,
+   "markdown_it + mdurl": 17.21,
+   "pygments": 5.45,
+   "click (upstream)": 0.0,
+   "stdlib": 67.25,
+   "other": 1.52,
+   "total": 188.37
+  },
+  "modules_imported": 398,
+  "top_modules_ms": [
+   [
+    "pydantic_core.core_schema",
+    8.04
+   ],
+   [
+    "pydantic.types",
+    5.55
+   ],
+   [
+    "annotated_types",
+    5.36
+   ],
+   [
+    "typer._adapters",
+    5.31
+   ],
+   [
+    "pydantic._internal._decorators",
+    3.05
+   ],
+   [
+    "rich.console",
+    2.87
+   ],
+   [
+    "rich._emoji_codes",
+    2.77
+   ],
+   [
+    "typer._coercion",
+    2.74
+   ],
+   [
+    "typing",
+    2.51
+   ],
+   [
+    "typing_extensions",
+    2.29
+   ],
+   [
+    "rich.traceback",
+    2.24
+   ],
+   [
+    "markdown_it.rules_block.html_block",
+    2.19
+   ]
+  ]
+ },
+ "error/bad-int-no-rich": {
+  "title": "basic.py World --count abc, TYPER_USE_RICH=0",
+  "groups_ms": {
+   "typer._click (vendored Click)": 4.77,
+   "typer (own code)": 14.82,
+   "pydantic": 27.45,
+   "pydantic_core": 10.24,
+   "pydantic deps": 9.63,
+   "rich": 0.0,
+   "markdown_it + mdurl": 0.0,
+   "pygments": 0.0,
+   "click (upstream)": 0.0,
+   "stdlib": 57.26,
+   "other": 1.25,
+   "total": 127.48
+  },
+  "modules_imported": 248,
+  "top_modules_ms": [
+   [
+    "pydantic_core.core_schema",
+    8.39
+   ],
+   [
+    "typer._adapters",
+    5.58
+   ],
+   [
+    "pydantic.types",
+    5.44
+   ],
+   [
+    "annotated_types",
+    5.11
+   ],
+   [
+    "pydantic._internal._decorators",
+    3.19
+   ],
+   [
+    "typer._coercion",
+    2.68
+   ],
+   [
+    "typing",
+    2.44
+   ],
+   [
+    "typing_extensions",
+    2.31
+   ],
+   [
+    "pydantic.json_schema",
+    2.02
+   ],
+   [
+    "_hashlib",
+    1.95
+   ],
+   [
+    "enum",
+    1.92
+   ],
+   [
+    "platform",
+    1.86
+   ]
+  ]
+ }
+}
